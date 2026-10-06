@@ -19,16 +19,11 @@ jobs:
           node-version: 22
           cache: npm
           cache-dependency-path: template/package-lock.json
-      - uses: astral-sh/setup-uv@v6
+      # Only Node is installed on purpose: the self-test covers the bundled ffmpeg and
+      # the speech-to-text setup that installs uv by itself.
       - name: Chromium libraries (Linux)
         if: runner.os == 'Linux'
-        run: sudo apt-get update && sudo apt-get install -y ffmpeg libnss3 libdbus-1-3 libatk1.0-0 libgbm1 libxrandr2 libxkbcommon0 libxfixes3 libxcomposite1 libxdamage1 libatk-bridge2.0-0 libpango-1.0-0 libcairo2 libcups2 && (sudo apt-get install -y libasound2t64 || sudo apt-get install -y libasound2)
-      - name: ffmpeg (macOS)
-        if: runner.os == 'macOS'
-        run: brew install ffmpeg
-      - name: ffmpeg (Windows)
-        if: runner.os == 'Windows'
-        run: choco install ffmpeg -y --no-progress
+        run: sudo apt-get update && sudo apt-get install -y libnss3 libdbus-1-3 libatk1.0-0 libgbm1 libxrandr2 libxkbcommon0 libxfixes3 libxcomposite1 libxdamage1 libatk-bridge2.0-0 libpango-1.0-0 libcairo2 libcups2 && (sudo apt-get install -y libasound2t64 || sudo apt-get install -y libasound2)
       - name: Remotion
         working-directory: template
         run: |
