@@ -27,7 +27,7 @@ jobs:
       - name: Remotion
         working-directory: template
         run: |
-          npm ci
+          npm ci --ignore-scripts
           npx remotion browser ensure
       - name: Syntax
         run: node --check bot/bot.mjs && node --check bot/send.mjs && node --check bot/run.mjs
